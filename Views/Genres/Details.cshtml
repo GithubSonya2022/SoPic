@@ -1,0 +1,76 @@
+﻿@model SoPic.Data.Models.Genre
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+   
+    <h4>
+        
+            @Html.DisplayFor(model => model.Title)
+       
+    </h4>
+    
+<table class="table">
+     
+
+     <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Image
+            </th>
+           
+            <th>
+                Price BGN
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+
+
+   
+    <tbody>
+@foreach (var movie in Model.Photo)
+{
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => movie.Title) 
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => movie.Description)
+            </td>
+                
+            <td>
+                <img class ="img-responsive" src="@Url.Content(movie.ImageUrl)" alt="@movie.Title" style="width:300px;height:200px" />
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => movie.Price)
+            </td>
+             @{
+                 if (User.Identities.FirstOrDefault()?.Name == "so@mail.bg")
+                 {
+                          <td>
+                                        
+                        </td>
+                 }
+                 else
+                 {
+                        <td>
+                          <a asp-action="Buy" asp-route-id="@movie.Id">Buy</a>               
+                        </td>
+                 }
+               }  
+        </tr>
+}
+    </tbody>
+</table>

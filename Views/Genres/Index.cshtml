@@ -1,0 +1,43 @@
+﻿@model IEnumerable<SoPic.Data.Models.Genre>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Photos by Genre</h1>
+@{
+    if (User.Identities.FirstOrDefault()?.Name == "so@mail.bg")
+    {
+    <p>
+            <a asp-action="Create">Create New</a>
+    </p>
+    }
+}
+<table class="table">
+    
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+                @{
+                    if (User.Identities.FirstOrDefault()?.Name == "so@mail.bg")
+                    {
+                            <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                    }
+                    else
+                    {
+                          <td>
+                          <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                          </td>
+                    }
+                    }
+                    </tr>
+}
+    </tbody>
+</table>

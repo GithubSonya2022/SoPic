@@ -1,0 +1,64 @@
+﻿@model SoPic.Data.Models.Photo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Photo</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        </dt>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+       
+        <dd class="col-sm-10">
+            
+                @Html.DisplayFor(modelItem => Model.Description)
+                
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+               
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Genre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Genre.Title)
+        </dd>
+        <dd>
+            <img class="img-responsive" src="@Url.Content(Model.ImageUrl)" alt="@Model.Title" style="width:900px;height:700px" />
+        </dd>
+        
+    </dl>
+</div>
+ @{
+    if (User.Identities.FirstOrDefault()?.Name == "so@mail.bg")
+    {
+    <p> 
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>   |
+        <a asp-action="Buy" asp-route-id="@Model.Id">Buy</a>   |
+        <a asp-action="Index">Back to List</a>
+    </p>
+    }
+    else
+    {
+     <p> 
+        <a asp-action="Buy" asp-route-id="@Model.Id">Buy</a>   |
+        <a asp-action="Index">Back to List</a>
+    </p>   
+    }
+}

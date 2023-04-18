@@ -1,0 +1,91 @@
+﻿@model SoPic.Data.Models.Photo
+
+@{
+    ViewData["Title"] = "Buy";
+}
+
+<h1>Buy Photo</h1>
+
+<h6>Please, insert purchase details!</h6>
+<h6>By clicking the "Buy" button you are reserving the right to buy the photo.</h6> 
+<h6>Please, make the payment on IBAN:xxxxxxxxxxxxxx; Beneficiary: SoPic; Payment reference: Photo Title.</h6>
+<h6>After I can see the transfer, you will get the link for downloading the photo in full resolution and rights.</h6>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Buy">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" readonly/>
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>         
+            
+            <div class="form-group">
+                <label asp-for="GenreId" class="control-label"></label>
+                <select asp-for="GenreId" class="form-control" asp-items="ViewBag.GenreId" readonly ></select>
+                <span asp-validation-for="GenreId" class="text-danger"></span>
+            </div>
+          <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" readonly />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" readonly />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BuyerName" class="control-label"></label>
+                <input asp-for="BuyerName" class="form-control" required/>
+                <span asp-validation-for="BuyerName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BuyerAddress" class="control-label"></label>
+                <input asp-for="BuyerAddress" class="form-control" required />
+                <span asp-validation-for="BuyerAddress" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BuyerPhone" class="control-label"></label>
+                <input asp-for="BuyerPhone" class="form-control" required/>
+                <span asp-validation-for="BuyerPhone" class="text-danger"></span>
+            </div>
+
+             <dd>
+            <img class="img-responsive" src="@Url.Content(Model.ImageUrl)" alt="@Model.Title" style="width:600px;height:320px" />
+            </dd>
+
+            <div class="form-group">
+                <label asp-for="PurchseDate" class="control-label"></label>
+                <input asp-for="PurchseDate" class="form-control" readonly />
+                <span asp-validation-for="PurchseDate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">                
+                <input type="submit" value="Buy" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        var output = document.getElementById('ImagePreview');
+        $(document).ready(function () {
+            output.src = $("#ImageUrl").val();
+        })
+        $("#ImageUrl").on("change", function () {
+            output.src = $(this).val();
+        })
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
